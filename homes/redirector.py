@@ -8,7 +8,13 @@ import logging
 import queue
 import traceback
 
+
 logger = logging.getLogger("homes")
+
+class InvalidState(Exception):
+
+  def __str__(self):
+    return f"<InvalidState msg={' '.join(self.args)!r}>"
 
 class Redirector(ABC):
 

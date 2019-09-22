@@ -1,6 +1,7 @@
 import logging
 from homes import utils
-from homes.client_core import Client
+from homes.server_core import Server
+import ssl
 import asyncio
 
 logger = logging.getLogger("homes")
@@ -11,16 +12,16 @@ def run(conf: utils.Config):
   if conf.debug:
     logger.setLevel(logging.DEBUG)
 
-  ssl_context = utils.get_ssl_context(conf, side="client")
+  ssl_context = utils.get_ssl_context(conf, side="server")
 
-  client = Client(client_local_addr=conf.client_local_addr,
-                  server_client_addr=conf.server_client_addr,
+  server = Server(server_client_addr=conf.server_client_addr,
+                  server_remote_addr=conf.server_remote_addr,
                   ssl_context=ssl_context,
                   token=conf.token,
-                  max_connections=conf.max_connections)
+                  max_connections=conf.max_connections
+                  )
 
-  asyncio.run(client.run(), debug=conf.debug)
-
+  asyncio.run(server.run(), debug=conf.debug)
 
 if __name__ == '__main__':
   config = utils.import_config()
