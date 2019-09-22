@@ -18,7 +18,8 @@ class Config:
   server_client_addr: Tuple[str, int]
   server_remote_addr: Tuple[str, int]
 
-  use_ssl: True
+  use_ssl: bool
+  check_hostname: bool
   token: str
 
   max_connections: int
@@ -64,6 +65,7 @@ def import_config():
     server_remote_addr    = config.server_remote_addr,
 
     use_ssl               = config.use_ssl,
+    check_hostname        = config.check_hostname,
     token                 = config.token,
 
     max_connections       = config.max_connections,
