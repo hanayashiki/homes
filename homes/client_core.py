@@ -130,6 +130,9 @@ class Client(Redirector):
       except websockets.exceptions.ConnectionClosed as e:
         time.sleep(5)
         logger.error(f"Connection closed, reconnecting: {e}")
+      except Exception as e:
+        time.sleep(5)
+        logger.error(f"Something else happened: {e}")
       finally:
         self.client_connections.clear()
 
