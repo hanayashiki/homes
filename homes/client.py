@@ -12,7 +12,8 @@ def run(conf: utils.Config):
     logger.setLevel(logging.DEBUG)
 
   ssl_context = utils.get_ssl_context(conf, side="client")
-  ssl_context.check_hostname = conf.check_hostname
+  if conf.use_ssl:
+    ssl_context.check_hostname = conf.check_hostname
 
   client = Client(client_local_addr=conf.client_local_addr,
                   server_client_addr=conf.server_client_addr,
